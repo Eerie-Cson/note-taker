@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+
+  app:
+    image: notes-api
+    ports:
+      - '3200:3200'
+    environment:
+      MONGO_URI: mongodb://root:example@mongodb:27017/note-taker?authSource=admin
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data:
+    driver: local
