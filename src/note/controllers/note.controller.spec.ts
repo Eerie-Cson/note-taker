@@ -157,5 +157,26 @@ describe('NoteController', () => {
         tags: ['tag1', 'tag2'],
       });
     });
+
+    it('should call the findByTags by the correct tags argument', async () => {
+      const tags = 'tag1,tags with spaces';
+      const notes = [
+        {
+          title: chance.sentence(),
+          user: chance.email(),
+          content: chance.sentence(),
+          tags: ['tags with spaces'],
+        },
+      ] as Note[];
+
+      mockNoteService.findByTags.mockResolvedValue(notes);
+
+      const result = await controller.findByTags(tags);
+
+      expect(result).toEqual(notes);
+      expect(mockNoteService.findByTags).toHaveBeenCalledWith({
+        tags: ['tag1', 'tags with spaces'],
+      });
+    });
   });
 });

@@ -64,7 +64,9 @@ export class NoteController {
 
   @Get('tags')
   async findByTags(@Query('tags') tags: string) {
-    return await this.noteService.findByTags({ tags: tags.split(',') });
+    return await this.noteService.findByTags({
+      tags: tags.split(',').map((tag) => tag.trim()),
+    });
   }
 
   @Get(':id')
