@@ -1,5 +1,6 @@
 import {
   Injectable,
+  Logger,
   NestMiddleware,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -20,7 +21,7 @@ export class JwtMiddleware implements NestMiddleware {
       req.user = decoded;
       next();
     } catch (error) {
-      console.log(error);
+      Logger.log(error);
       throw new UnauthorizedException('Invalid token');
     }
   }
