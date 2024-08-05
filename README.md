@@ -26,7 +26,7 @@ Create a .env file in the root of the project with the following content:
 
 ```env
 MONGO_URI=mongodb://root:example@localhost:27017/note-taker?authSource=admin
-PORT=8080
+PORT=3200
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
 JWT_SECRET=your-jwt-secret
@@ -41,7 +41,7 @@ Go to the Google Developer Console.
 * Create a new project or select an existing project.
 * Navigate to APIs & Services > Credentials.
 * Create OAuth 2.0 Client IDs with the following settings:
-* Authorized Redirect URIs: Add http://localhost:8080/auth/google/callback for local testing.
+* Authorized Redirect URIs: Add http://localhost:3200/auth/google/callback for local testing.
 
 ### 4. Docker Setup
 Build and run the Docker containers:
@@ -55,17 +55,17 @@ This command will start both the MongoDB container and the application container
 
 ### 1. Authentication
 Login:
-* Endpoint: GET http://localhost:8080/auth/google
+* Endpoint: GET http://localhost:3200/auth/google
 * Description: Initiates Google OAuth login process. Ensure the redirect URI matches the one set in the Google Developer Console.
 
 Callback:
-* Endpoint: http://localhost:8080/auth/google/callback
+* Endpoint: http://localhost:3200/auth/google/callback
 * Description: Handles the OAuth callback and retrieves the token.
 
 ### 2. CRUD Endpoints for Notes
 # Create a New Note:
 
-* Endpoint: http://localhost:8080/api/notes
+* Endpoint: http://localhost:3200/api/notes
 * Headers: 
   * Authorization: Bearer <JWT_TOKEN>
 * Body
