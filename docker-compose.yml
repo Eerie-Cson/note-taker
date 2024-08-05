@@ -11,16 +11,24 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mongodb_data:/data/db
+    command: ['mongod', '--setParameter', 'logLevel=1']
     restart: always
+    logging:
+      driver: 'none'
 
   app:
-    image: notes-api
+    build: .
     ports:
-      - '8080:8080'
+      - '3200:3200'
     environment:
       MONGO_URI: mongodb://root:example@mongodb:27017/note-taker?authSource=admin
     depends_on:
       - mongodb
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
 
 volumes:
   mongodb_data:
