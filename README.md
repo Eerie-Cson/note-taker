@@ -37,11 +37,12 @@ Ensure you have registered your application with Google OAuth and obtained your 
 
 ## Google OAuth Configuration Steps:
 
-Go to the Google Developer Console.
-* Create a new project or select an existing project.
-* Navigate to APIs & Services > Credentials.
-* Create OAuth 2.0 Client IDs with the following settings:
-* Authorized Redirect URIs: Add http://localhost:3200/auth/google/callback for local testing.
+* Go to the Google Developer Console.
+* Navigate to [APIs & Services > Credentials](https://console.cloud.google.com/apis/credentials).
+* Create a new project if you don't have any projects yet or select an existing project.
+* After creating a project, create credentials located near the lower part of the search bar
+* Create OAuth 2.0 Client IDs in the with the following settings:
+ * Authorized Redirect URIs: Add http://localhost:3200/auth/google/callback for local testing.
 
 ### 4. Docker Setup
 Build and run the Docker containers:
