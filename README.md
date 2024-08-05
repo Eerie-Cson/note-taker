@@ -120,7 +120,7 @@ Callback:
 # Categorize by tag
 
 * Method: GET
-* Endpoint: GEET /api/notes/tags
+* Endpoint: GET /api/notes/tags
 * Headers:
   * Authorization: Bearer <JWT_TOKEN>
 * Query Parameters:
