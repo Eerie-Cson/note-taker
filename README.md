@@ -45,7 +45,7 @@ Ensure you have registered your application with Google OAuth and obtained your 
  * Authorized Redirect URIs: http://localhost:3200/auth/google/callback for local testing.
 
 ### 4. Docker Setup
-Build and run the Docker containers:
+First open docker desktop and then run the Docker containers and start the application:
 ```bash
 docker-compose up -d
 npm run start:dev
