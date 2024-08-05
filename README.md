@@ -1,73 +1,129 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Note-Taker App Documentation
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This Note-Taker application allows users to create, read, update, and delete notes. It supports Google OAuth authentication and runs in Docker containers.
 
-## Description
+## Prerequisites
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Docker
+- Docker Compose
+- Postman (for testing)
 
-## Installation
+## Setup
+
+### 1. Clone the Repository
+
+Start by cloning the repository:
 
 ```bash
-$ npm install
+git clone https://github.com/your-repo/note-taker-app.git
+cd note-taker-app
 ```
 
-## Running the app
+### 2. Configuration
+Create a .env file in the root of the project with the following content:
 
+```env
+MONGO_URI=mongodb://root:example@localhost:27017/note-taker?authSource=admin
+PORT=8080
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+JWT_SECRET=your-jwt-secret
+```
+
+### 3. Google OAuth Setup
+Ensure you have registered your application with Google OAuth and obtained your GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.
+
+## Google OAuth Configuration Steps:
+
+Go to the Google Developer Console.
+Create a new project or select an existing project.
+Navigate to APIs & Services > Credentials.
+Create OAuth 2.0 Client IDs with the following settings:
+Authorized Redirect URIs: Add http://localhost:8080/auth/google/callback for local testing.
+
+### 4. Docker Setup
+Build and run the Docker containers:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker-compose up --build
 ```
+This command will start both the MongoDB container and the application container.
 
-## Test
 
-```bash
-# unit tests
-$ npm run test
+### Testing Endpoints with Postman
 
-# e2e tests
-$ npm run test:e2e
+### 1. Authentication
+Login:
+* Endpoint: GET http://localhost:8080/auth/google
+* Description: Initiates Google OAuth login process. Ensure the redirect URI matches the one set in the Google Developer Console.
 
-# test coverage
-$ npm run test:cov
-```
+Callback:
+* Endpoint: http://localhost:8080/auth/google/callback
+* Description: Handles the OAuth callback and retrieves the token.
 
-## Support
+### 2. CRUD Endpoints for Notes
+# Create a New Note:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+* Endpoint: http://localhost:8080/api/notes
+* Headers: 
+  * Authorization: Bearer <JWT_TOKEN>
+* Body
+  ```json
+  {
+  "title": "Note Title",
+  "content": "Note Content",
+  "tags": ["tag1", "tag2"]
+  }
+  ```
+# Retrieve All Notes:
 
-## Stay in touch
+* Method: GET
+* Endpoint: GET /api/notes
+* Headers:
+  * Authorization: Bearer <JWT_TOKEN>
+* Query Parameters:
+  * user=<USER_ID>
+  * page=<PAGE>
+  * limit=<LIMIT>
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Retrieve a Specific Note:
 
-## License
+* Method: GET
+* Endpoint: GET /api/notes/:noteId
+* Headers:
+  * Authorization: Bearer <JWT_TOKEN>
+  
+# Update an Existing Note:
 
-Nest is [MIT licensed](LICENSE).
+* Method: PUT
+* Endpoint: PUT /api/notes/:noteId
+* Headers:
+  * Authorization: Bearer <JWT_TOKEN>
+* Body:
+  ```json
+  {
+  "title": "Updated Title",
+  "content": "Updated Content",
+  "tags": ["newTag"]
+  }
+  ```
+
+# Delete a Note:
+
+* Method: DELETE
+* Endpoint: DELETE /api/notes/:noteId
+* Headers:
+  * Authorization: Bearer <JWT_TOKEN>
+
+# Categorize by tag
+
+* Method: GET
+* Endpoint: GEET /api/notes/tags
+* Headers:
+  * Authorization: Bearer <JWT_TOKEN>
+* Query Parameters:
+  * tags=<tags *multiple tags separated by comma*>
+
+Contact
+For any issues or questions, please contact [ericson.sacdalan.4@gmail.com](ericson.sacdalan.4@gmail.com).
