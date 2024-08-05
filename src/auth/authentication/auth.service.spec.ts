@@ -92,9 +92,12 @@ describe('AuthService', () => {
       const result = await authService.generateJwtToken(user);
 
       expect(result).toBe(token);
-      expect(mockJwtService.sign).toHaveBeenCalledWith({
-        email: user.user.email,
-      });
+      expect(mockJwtService.sign).toHaveBeenCalledWith(
+        {
+          email: user.user.email,
+        },
+        { expiresIn: '1h' },
+      );
     });
   });
 
