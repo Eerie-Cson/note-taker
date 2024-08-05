@@ -84,14 +84,14 @@ To get <JWT_TOKEN> go to http://localhost:3200/auth/google and sign in with your
 # Retrieve All Notes:
 
 * Method: GET
-* Endpoint: GET /api/notes?page=<PAGE>&limit=<LIMIT>
- * example: http://localhost:3200/api/notes?page=1&limit=10
+* Endpoint: GET /api/notes?page=< PAGE >&limit=< LIMIT >
+  * example: http://localhost:3200/api/notes?page=1&limit=10
 * Headers:
   * Authorization: Bearer <JWT_TOKEN>
 * Query Parameters:
   * user=<USER_ID>
-  * page=<PAGE>
-  * limit=<LIMIT>
+  * page=< PAGE >
+  * limit=< LIMIT >
 
 # Retrieve a Specific Note:
 
