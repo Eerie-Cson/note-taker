@@ -59,7 +59,7 @@ JWT_SECRET=your-jwt-secret
  ```bash
  docker-compose up --build
  ```
- This command will start both the MongoDB container and the application container.
+ This command will start both the MongoDB container and the application container. Wait for the LOG 🚀 note-taker-app is running on: http://0.0.0.0:3200 in the terminal.
 
 
 ### Testing Endpoints with Postman
