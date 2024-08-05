@@ -42,7 +42,7 @@ Ensure you have registered your application with Google OAuth and obtained your 
 * Create a new project if you don't have any projects yet or select an existing project.
 * After creating a project, create credentials located near the lower part of the search bar
 * Create OAuth 2.0 Client IDs in the with the following settings:
- * Authorized Redirect URIs: Add http://localhost:3200/auth/google/callback for local testing.
+ * Authorized Redirect URIs: http://localhost:3200/auth/google/callback for local testing.
 
 ### 4. Docker Setup
 Build and run the Docker containers:
@@ -56,13 +56,7 @@ This command will start both the MongoDB container and the application container
 ### Testing Endpoints with Postman
 
 ### 1. Authentication
-Login:
-* Endpoint: GET http://localhost:3200/auth/google
-* Description: Initiates Google OAuth login process. Ensure the redirect URI matches the one set in the Google Developer Console.
-
-Callback:
-* Endpoint: http://localhost:3200/auth/google/callback
-* Description: Handles the OAuth callback and retrieves the token.
+To get <JWT_TOKEN> go to http://localhost:3200/auth/google and sign in with your google account. This will redirect you to your test token.
 
 ### 2. CRUD Endpoints for Notes
 # Create a New Note:
