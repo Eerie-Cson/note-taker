@@ -55,7 +55,7 @@ JWT_SECRET=your-jwt-secret
 
 ### 5. Docker Setup
 * First ensure that docker desktop is running
-* Run the Docker containers and start the application:
+* Run in your terminal:
  ```bash
  docker-compose up --build
  ```
