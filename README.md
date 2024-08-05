@@ -57,8 +57,7 @@ JWT_SECRET=your-jwt-secret
 * First ensure that docker desktop is running
 * Run the Docker containers and start the application:
  ```bash
- docker-compose up -d
- npm run start:dev
+ docker-compose up --build
  ```
  This command will start both the MongoDB container and the application container.
 
