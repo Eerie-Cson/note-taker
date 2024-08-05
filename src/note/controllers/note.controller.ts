@@ -52,7 +52,7 @@ export class NoteController {
   ) {
     const options: PaginationOptions = {
       page: parseInt(page, 10) || 1,
-      limit: parseInt(limit, 10) || 10,
+      limit: parseInt(limit, 10) || 3,
     };
     const paginatedNotes = await this.noteService.findAllNotes({
       options,
