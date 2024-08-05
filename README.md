@@ -20,8 +20,29 @@ Start by cloning the repository:
 git clone https://github.com/your-repo/note-taker-app.git
 cd note-taker-app
 ```
+### 2. Google OAuth Setup
+Ensure you have registered your application with Google OAuth and obtained your GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.
 
-### 2. Configuration
+## Google OAuth Configuration Steps:
+
+* Go to the Google Developer Console.
+* Navigate to [APIs & Services > Credentials](https://console.cloud.google.com/apis/credentials).
+* Create a new project if you don't have any projects yet or select an existing project.
+* After creating a project, create credentials located near the lower part of the search bar
+* Create OAuth 2.0 Client IDs in the with the following settings:
+  * Application Type: Web Application 
+  * Authorized Redirect URIs: http://localhost:3200/auth/google/callback
+  * Authorized JavaScript origins: http://localhost:3200
+* Copy the Client-Id and Client-Secret, this will be needed for the .env file
+
+
+### 3. JWT_SECRET
+To generate a JWT_SECRET, run this in your terminal
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+### 4. Configuration
 Create a .env file in the root of the project with the following content:
 
 ```env
@@ -32,25 +53,13 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 JWT_SECRET=your-jwt-secret
 ```
 
-### 3. Google OAuth Setup
-Ensure you have registered your application with Google OAuth and obtained your GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.
-
-## Google OAuth Configuration Steps:
-
-* Go to the Google Developer Console.
-* Navigate to [APIs & Services > Credentials](https://console.cloud.google.com/apis/credentials).
-* Create a new project if you don't have any projects yet or select an existing project.
-* After creating a project, create credentials located near the lower part of the search bar
-* Create OAuth 2.0 Client IDs in the with the following settings:
- * Authorized Redirect URIs: http://localhost:3200/auth/google/callback for local testing.
-
-### 4. Docker Setup
-First open docker desktop and then run the Docker containers and start the application:
-```bash
-docker-compose up -d
-npm run start:dev
-```
-This command will start both the MongoDB container and the application container.
+### 5. Docker Setup
+* First ensure that docker desktop is running
+* Run in your terminal:
+ ```bash
+ docker-compose up --build
+ ```
+ This command will start both the MongoDB container and the application container.
 
 
 ### Testing Endpoints with Postman
