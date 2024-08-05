@@ -17,7 +17,7 @@ describe('NoteService', () => {
     find: jest.fn(),
     findById: jest.fn(),
     updateOne: jest.fn(),
-    deleteOne: jest.fn(),
+    findByIdAndDelete: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -167,12 +167,12 @@ describe('NoteService', () => {
     it('should delete a note and return true', async () => {
       const noteId = chance.guid();
 
-      mockNoteModel.deleteOne.mockResolvedValue({ deletedCount: 1 });
+      mockNoteModel.findByIdAndDelete.mockResolvedValue({ deletedCount: 1 });
 
       const result = await noteService.deleteNote(noteId);
 
       expect(result).toBe(true);
-      expect(mockNoteModel.deleteOne).toHaveBeenCalledWith({ _id: noteId });
+      expect(mockNoteModel.findByIdAndDelete).toHaveBeenCalledWith(noteId);
     });
   });
 });

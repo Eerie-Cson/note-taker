@@ -52,12 +52,12 @@ export class NoteService {
     }
   }
 
-  async deleteNote(id: string): Promise<boolean> {
+  async deleteNote(noteId: string): Promise<boolean> {
     try {
-      await this.noteModel.deleteOne({ _id: id });
-    } catch (err) {
-      console.log(err);
+      const deletedNote = await this.noteModel.findByIdAndDelete(noteId);
+      return !!deletedNote;
+    } catch (error) {
+      throw new Error('Failed to delete note');
     }
-    return true;
   }
 }

@@ -54,10 +54,12 @@ export class NoteController {
       page: parseInt(page, 10) || 1,
       limit: parseInt(limit, 10) || 10,
     };
-    return await this.noteService.findAllNotes({
+    const paginatedNotes = await this.noteService.findAllNotes({
       options,
       user: req.user.email,
     });
+
+    return paginatedNotes;
   }
 
   @Get('tags')
@@ -76,6 +78,9 @@ export class NoteController {
 
   @Put(':id')
   async updateNote(@Param('id') id: string, @Body() note: Note) {
+    if (!note) {
+      throw new NotFoundException('Note cannot be empty');
+    }
     const updatedNote = await this.noteService.updateNote({ id, note });
     if (!updatedNote) {
       throw new NotFoundException('Note not found');
