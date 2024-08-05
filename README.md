@@ -59,7 +59,7 @@ JWT_SECRET=your-jwt-secret
  ```bash
  docker-compose up --build
  ```
- This command will start both the MongoDB container and the application container.
+ This command will start both the MongoDB container and the application container. Wait for the LOG 🚀 note-taker-app is running on: http://0.0.0.0:3200 in the terminal.
 
 
 ### Testing Endpoints with Postman
@@ -81,17 +81,20 @@ To get <JWT_TOKEN> go to http://localhost:3200/auth/google and sign in with your
   "tags": ["tag1", "tag2"]
   }
   ```
+* Example URL:
+  * http://localhost:3200/api/notes
 # Retrieve All Notes:
 
 * Method: GET
-* Endpoint: GET /api/notes?page=<PAGE>&limit=<LIMIT>
- * example: http://localhost:3200/api/notes?page=1&limit=10
+* Endpoint: GET /api/notes
 * Headers:
   * Authorization: Bearer <JWT_TOKEN>
 * Query Parameters:
   * user=<USER_ID>
-  * page=<PAGE>
-  * limit=<LIMIT>
+  * page=< PAGE >
+  * limit=< LIMIT >
+* Example URL:
+  * http://localhost:3200/api/notes?page=1&limit=10
 
 # Retrieve a Specific Note:
 
@@ -99,6 +102,8 @@ To get <JWT_TOKEN> go to http://localhost:3200/auth/google and sign in with your
 * Endpoint: GET /api/notes/:noteId
 * Headers:
   * Authorization: Bearer <JWT_TOKEN>
+* Example URL:
+  * http://localhost:3200/api/notes/66b108d6233895184c5729c2
   
 # Update an Existing Note:
 
@@ -114,6 +119,8 @@ To get <JWT_TOKEN> go to http://localhost:3200/auth/google and sign in with your
   "tags": ["newTag"]
   }
   ```
+* Example URL:
+  * http://localhost:3200/api/notes/66b108d6233895184c5729c2
 
 # Delete a Note:
 
@@ -121,6 +128,8 @@ To get <JWT_TOKEN> go to http://localhost:3200/auth/google and sign in with your
 * Endpoint: DELETE /api/notes/:noteId
 * Headers:
   * Authorization: Bearer <JWT_TOKEN>
+* Example URL:
+  * http://localhost:3200/api/notes/66b108d6233895184c5729c2
 
 # Categorize by tag
 
@@ -130,6 +139,8 @@ To get <JWT_TOKEN> go to http://localhost:3200/auth/google and sign in with your
   * Authorization: Bearer <JWT_TOKEN>
 * Query Parameters:
   * tags=<tags *multiple tags separated by comma*>
+* Example URL:
+  * http://localhost:3200/api/notes/tags?tags='tag1,tag2'
 
 ### Contact
 For any issues or questions, please contact [ericson.sacdalan.4@gmail.com](ericson.sacdalan.4@gmail.com).
