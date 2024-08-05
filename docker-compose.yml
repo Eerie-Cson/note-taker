@@ -16,7 +16,7 @@ services:
   app:
     image: notes-api
     ports:
-      - '3200:3200'
+      - '8080:8080'
     environment:
       MONGO_URI: mongodb://root:example@mongodb:27017/note-taker?authSource=admin
     depends_on:
