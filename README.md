@@ -46,7 +46,8 @@ Go to the Google Developer Console.
 ### 4. Docker Setup
 Build and run the Docker containers:
 ```bash
-docker-compose up --build
+docker-compose up -d
+npm run start:dev
 ```
 This command will start both the MongoDB container and the application container.
 
